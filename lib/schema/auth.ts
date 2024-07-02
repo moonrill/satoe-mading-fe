@@ -30,7 +30,7 @@ export const emailSchema = z.object({
  * @property {string} confirmPassword - The confirmation of the password.
  */
 export const RegisterFormSchema = z.object({
-  fullName: z.string().min(1, { message: 'Please enter your name.' }),
+  name: z.string().min(1, { message: 'Please enter your name.' }),
   password: z
     .string()
     .min(8, { message: 'Password must be at least 8 characters.' }),

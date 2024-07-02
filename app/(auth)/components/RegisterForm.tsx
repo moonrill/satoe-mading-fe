@@ -20,6 +20,7 @@ const RegisterForm = () => {
       {!emailChecked ? (
         <>
           <EmailForm
+            email={email}
             setEmail={setEmail}
             setEmailChecked={setEmailChecked}
             setEmailExists={setEmailExists}

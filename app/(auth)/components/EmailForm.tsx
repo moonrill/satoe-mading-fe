@@ -12,12 +12,14 @@ import { z } from 'zod';
 type EmailInput = z.infer<typeof emailSchema>;
 
 interface EmailFormProps {
+  email: string;
   setEmail: (email: string) => void;
   setEmailChecked: (checked: boolean) => void;
   setEmailExists: (exists: boolean) => void;
 }
 
 const EmailForm = ({
+  email,
   setEmail,
   setEmailChecked,
   setEmailExists,
@@ -30,6 +32,7 @@ const EmailForm = ({
     setError,
   } = useForm<EmailInput>({
     resolver: zodResolver(emailSchema),
+    defaultValues: { email },
   });
 
   const submitEmail = async (data: EmailInput) => {
@@ -68,6 +71,7 @@ const EmailForm = ({
           className={`mt-1 ${errors?.email && 'border-red-500'}`}
           placeholder='name@example.com'
           {...register('email')}
+          onChange={(e) => setEmail(e.target.value)}
         />
         {errors?.email && (
           <p className='text-red-500 text-sm'>{errors.email.message}</p>

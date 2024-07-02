@@ -1,8 +1,11 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { createUser } from '@/lib/actions';
 import { RegisterFormSchema } from '@/lib/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Loader2 } from 'lucide-react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -14,6 +17,7 @@ interface CredentialsFormProps {
 }
 
 const CredentialsForm = ({ email, handleBack }: CredentialsFormProps) => {
+  const [loading, setLoading] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
@@ -25,25 +29,34 @@ const CredentialsForm = ({ email, handleBack }: CredentialsFormProps) => {
 
   // TODO: Handle form submission using API
   const onSubmit = async (data: RegisterInputs) => {
-    const { confirmPassword, ...formData } = { ...data, email };
+    setLoading(true);
+    try {
+      const { confirmPassword, ...formData } = { ...data, email };
 
-    console.log(formData);
+      const response = await createUser(formData);
+
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className='mt-6 w-full'>
         <div className='mb-4'>
-          <Label htmlFor='fullName'>Full Name</Label>
+          <Label htmlFor='name'>Name</Label>
           <Input
             type='text'
-            id='fullName'
+            id='name'
             className='mt-1'
-            placeholder='Your Name'
-            {...register('fullName')}
+            placeholder='John Doe'
+            {...register('name')}
           />
-          {errors?.fullName && (
-            <p className='text-red-500 text-sm'>{errors?.fullName?.message}</p>
+          {errors?.name && (
+            <p className='text-red-500 text-sm'>{errors?.name?.message}</p>
           )}
         </div>
         <div className='mb-4'>
@@ -77,8 +90,15 @@ const CredentialsForm = ({ email, handleBack }: CredentialsFormProps) => {
             </p>
           )}
         </div>
-        <Button type='submit' className='w-full'>
-          Create Account
+        <Button type='submit' className='w-full' disabled={loading}>
+          {loading ? (
+            <>
+              <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+              Loading
+            </>
+          ) : (
+            'Create Account'
+          )}
         </Button>
       </form>
       <Button

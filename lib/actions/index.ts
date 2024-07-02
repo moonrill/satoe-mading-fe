@@ -1,1 +1,2 @@
-export { checkEmail } from './auth';
+export { checkEmail, createUser, login } from './auth';
+
