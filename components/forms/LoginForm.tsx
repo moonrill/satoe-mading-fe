@@ -8,7 +8,7 @@ import { LoginFormSchema } from '@/lib/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
-import GoogleBtn from './GoogleBtn';
+import GoogleBtn from '../ui/google-btn';
 
 type Inputs = z.infer<typeof LoginFormSchema>;
 

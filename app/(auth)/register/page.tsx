@@ -1,8 +1,8 @@
+import RegisterForm from '@/components/forms/RegisterForm';
 import { buttonVariants } from '@/components/ui/button';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import RegisterForm from '../components/RegisterForm';
-import TermsAndPrivacy from '../components/TermsAndPrivacy';
+import TermsAndPrivacy from '../../../components/ui/terms-privacy';
 
 export const metadata: Metadata = {
   title: 'Register',

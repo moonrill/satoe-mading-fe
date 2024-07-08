@@ -1,8 +1,8 @@
+import LoginForm from '@/components/forms/LoginForm';
 import { buttonVariants } from '@/components/ui/button';
 import { Metadata } from 'next';
 import Link from 'next/link';
-import LoginForm from '../components/LoginForm';
-import TermsAndPrivacy from '../components/TermsAndPrivacy';
+import TermsAndPrivacy from '../../../components/ui/terms-privacy';
 
 export const metadata: Metadata = {
   title: 'Login',
